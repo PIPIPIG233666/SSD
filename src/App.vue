@@ -34,6 +34,6 @@ const data = ref<ChartData<'bar'>>({
 onMounted(() => {
   setInterval(() => {
     data.value = chartConfig.Data();
-  }, 500);
+  }, 3000);
 });
 </script>
