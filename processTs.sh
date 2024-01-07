@@ -1,13 +1,14 @@
 #!/bin/bash
 set -e
-cp $1 ssd.csv
-ssd=ssd.csv
-# usage: ./processNames.sh inputfile
+ssd=src/chartConfig.ts
+# usage: ./processTs.sh
+sed -i 's/固加德/GUDGA/gI' $ssd
 sed -i 's/kioxia/KIOXIA/gI' $ssd
 sed -i 's/intel/INTEL/gI' $ssd
+sed -i 's/繁想/FANXIANG/gI' $ssd
 sed -i 's/fanxiang/FANXIANG/gI' $ssd
 sed -i "s/SK/SK Hynix/gI" $ssd
-sed -i "s/P41 P/Solidigm P41 P/gI" $ssd
+sed -i "s/,P41 P/,Solidigm P41 P/gI" $ssd
 sed -i "s/,PM/,Samsung PM/gI" $ssd
 sed -i "s/PC801/SK Hynix PC801/gI" $ssd
 sed -i "s/memblaze/MemBlaze/gI" $ssd

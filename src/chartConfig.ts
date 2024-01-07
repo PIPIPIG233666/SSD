@@ -3,6 +3,24 @@ function scaledScore(rawScore: number): number {
   return rawScore / 100;
 }
 
+const names: Array<string> = [
+  'ADATA  960 2T',        'FANXIANG MAP1202  512G',
+  'GUDGA IG 512G',        'INTEL 660P 512G',
+  'INTEL 670P 1T',        'INTEL 750 400G',
+  'INTEL 900P 280G',      'INTEL DC S3610 200G',
+  'INTEL P4500 2T',       'INTEL P5800X 400G',
+  'KIOXIA CM6V 3.2T',     'KIOXIA FL6 800G',
+  'KIOXIA Q200EX. 256G',  'KIOXIA RC10 1T',
+  'MemBlaze D916 3.2T',   'Netlist 1951 7.68T',
+  'Solidigm P41 PLUS  L01C 2.0',   'SK Hynix PC801 1T',
+  'PLEXTOR M6S 128G',     'PM883 480G',
+  'PM9A3 1.92T M2',       'PM9A7 960G',
+  'Samsung PM9A1 1T',     'SK Hynix PE4010 900G',
+  'Solidigm P41 PLUS 1T', 'UMIS AM6A1 1T',
+  'UMIS AM6B1 1T',        'WD SN550 1T',
+  'WD SN580 1T',          'WD SN810 1T',
+  'YMTC PC411 2T',        'ZHITAI TI600 1T QLC',
+];
 const scores: Array<number[]> = [
  [ // PCMark 10 Full Storage Zero
     3672, 2712, 1857, 1714, 2702, 1393, 6005, 621,  1389, 8865, 2770,
@@ -36,25 +54,8 @@ const scores: Array<number[]> = [
   ],
 ];
 export const Data = () => ({
-  labels: [
-    'ADATA  960 2T',        'fanxiang MAP1202  512G',
-    'GUDGA IG 512G',        'INTEL 660P 512G',
-    'INTEL 670P 1T',        'INTEL 750 400G',
-    'Intel 900P 280G',      'Intel DC S3610 200G',
-    'Intel P4500 2T',       'Intel P5800X 400G',
-    'KIOXIA CM6V 3.2T',     'KIOXIA FL6 800G',
-    'kioxia Q200EX. 256G',  'kioxia RC10 1T',
-    'memblaze D916 3.2T',   'Netlist 1951 7.68T',
-    'P41 PLUS  L01C 2.0',   'PC801 1T',
-    'PLEXTOR M6S 128G',     'PM883 480G',
-    'PM9A3 1.92T M2',       'PM9A7 960G',
-    'Samsung PM9A1 1T',     'SK PE4010 900G',
-    'Solidigm P41 PLUS 1T', 'UMIS AM6A1 1T',
-    'UMIS AM6B1 1T',        'WD SN550 1T',
-    'WD SN580 1T',          'WD SN810 1T',
-    'YMTC PC411 2T',        'ZHITAI TI600 1T QLC',
-  ],
-  datasets: [
+  labels: names,
+   datasets: [
     {
       label: 'PCMark 10 Full Storage Zero (/100)',
       backgroundColor: '#f87979',
