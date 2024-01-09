@@ -1,3 +1,12 @@
 # SSD
 
-[Edit in StackBlitz next generation editor ⚡️](https://stackblitz.com/~/github.com/PIPIPIG233666/SSD)
+# To run
+```
+npm install
+
+npm run start
+```
+
+# To do
+ - [ ] deploy to website
+ - [ ] prettify
