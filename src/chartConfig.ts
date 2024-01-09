@@ -77,7 +77,7 @@ export const options = {
   // wide
   elements: {
     bar: {
-      borderWidth: 2,
+      borderWidth: 0.5,
     },
   },
   /*x: {
