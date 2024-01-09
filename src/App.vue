@@ -1,10 +1,12 @@
 <template>
   <Bar :data="data" :options="options" />
-  // display the names and raw scores
-  <div v-for="(name, index) in names" :key="index">
-    {{ name }}: {{ pcm[index] }} {{ pcm75[index] }} {{ dm[index] }} {{ dm75[index] }} {{ spec[index] }} {{ spec75[index] }}
+  <div>
+    <center><button @click="toggleDiv" class="toggle-button">Raw Scores</button></center>
+    <div v-show="isDivVisible" class="content-div" v-for="(name, index) in names" :key="index">
+    {{ name }}: PCMARK10: {{ pcm[index] }} {{ pcm75[index] }} 3DMARK: {{ dm[index] }} {{ dm75[index] }} SPEC2017: {{ spec[index] }} {{ spec75[index] }}
     </div>
-</template>
+  </div>
+ </template>
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
@@ -32,7 +34,7 @@ import csv from '@/assets/raw.csv';
  * SEPC Workstation 3.1 Storage 75%
  */
 // create an array of names from the csv file
-const names: Array<string> = csv.map((row) => row["Name"]);
+const names = chartConfig.names;
 
 // create an array of separate scores from the csv file
 const pcm: Array<number> = csv.map((row) => row["PCMARK 10 FULL STORAGE  ZERO"]);
@@ -43,6 +45,12 @@ const spec: Array<number> = csv.map((row) => row["SEPC Workstation 3.1 Storage z
 const spec75: Array<number> = csv.map((row) => row["SEPC Workstation 3.1 Storage 75%"]);
 // create an array of arrays of scores
 const scores: Array<Array<number>> = [pcm, pcm75, dm, dm75, spec, spec75];
+
+const isDivVisible = ref(false);
+
+const toggleDiv = () => {
+  isDivVisible.value = !isDivVisible.value;
+};
 
 ChartJS.register(
   Title,
@@ -64,3 +72,24 @@ onMounted(() => {
   }, 3000);
 });
 </script>
+
+
+<style scoped>
+/* Add your custom styles here */
+.toggle-button {
+  padding: 10px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.content-div {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #3498db;
+  border-radius: 5px;
+  background-color: #ecf0f1;
+}
+</style>

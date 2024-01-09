@@ -15,7 +15,7 @@ import csv from '@/assets/ssd.csv';
  * SEPC Workstation 3.1 Storage 75%
  */
 // create an array of names from the csv file
-const names: Array<string> = csv.map((row) => row["Name"]);
+export const names: Array<string> = csv.map((row) => row["Name"]);
 
 // create an array of separate scores from the csv file
 const pcm: Array<number> = csv.map((row) => row["PCMARK 10 FULL STORAGE  ZERO"]);
@@ -93,7 +93,7 @@ export const options = {
       position: 'right',
     },
     title: {
-      display: true,
+      display: false,
       text: 'HOMO Lab SSD Benchmark',
     },
   },
