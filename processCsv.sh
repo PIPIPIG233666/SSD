@@ -8,9 +8,9 @@ sed -i 's/kioxia/KIOXIA/gI' $ssd
 sed -i 's/intel/INTEL/gI' $ssd
 sed -i 's/繁想/FANXIANG/gI' $ssd
 sed -i 's/fanxiang/FANXIANG/gI' $ssd
-sed -i "s/SK/SK Hynix/gI" $ssd
-sed -i "s/,P41 P/,Solidigm P41 P/gI" $ssd
-sed -i "s/,PM/,Samsung PM/gI" $ssd
+sed -i "s/^SK/SK Hynix/gI" $ssd
+sed -i "s/^P41 P/Solidigm P41 P/gI" $ssd
+sed -i "s/^PM/Samsung PM/gI" $ssd
 sed -i "s/PC801/SK Hynix PC801/gI" $ssd
 sed -i "s/memblaze/MemBlaze/gI" $ssd
 sed -i "s/容量过低没办法测/NaN/g" $ssd
