@@ -4,6 +4,7 @@
     <center><button @click="toggleDiv" class="toggle-button">Raw Scores</button></center>
     <div v-show="isDivVisible" class="content-div" v-for="(name, index) in names" :key="index">
     {{ name }}: PCMARK10: {{ pcm[index] }}, {{ pcm75[index] }} 3DMARK: {{ dm[index] }}, {{ dm75[index] }} SPEC2017: {{ spec[index] }}, {{ spec75[index] }}.
+    {{labels}}
     </div>
   </div>
  </template>
@@ -35,6 +36,7 @@ import csv from '@/assets/raw.csv';
  */
 // create an array of names from the csv file
 const names = chartConfig.names;
+const labels: Array<string> = Object.keys(csv[0]);
 
 // create an array of separate scores from the csv file
 const pcm: Array<number> = csv.map((row) => row["PCMARK 10 FULL STORAGE  ZERO"]);

@@ -1,6 +1,6 @@
 // convert raw scores to scaled scores (divide by 100)
 function scaledScore(rawScore: number): number {
-  return rawScore / 100;
+  return rawScore / 1;
 }
 
 import csv from '@/assets/ssd.csv';
@@ -11,8 +11,8 @@ import csv from '@/assets/ssd.csv';
  * PCMARK 10 FULL STORAGE 75%,
  * "3DMARK STORAGE ZERO",
  * "3DMARK STORAGE 75%",
- * SEPC Workstation 3.1 Storage zero,
- * SEPC Workstation 3.1 Storage 75%
+ * SPEC Workstation 3.1 Storage zero,
+ * SPEC Workstation 3.1 Storage 75%
  */
 // create an array of names from the csv file
 export const names: Array<string> = csv.map((row) => row["Name"]);
@@ -22,10 +22,13 @@ const pcm: Array<number> = csv.map((row) => row["PCMARK 10 FULL STORAGE  ZERO"])
 const pcm75: Array<number> = csv.map((row) => row["PCMARK 10 FULL STORAGE 75%"]);
 const dm: Array<number> = csv.map((row) => row["3DMARK STORAGE ZERO"]);
 const dm75: Array<number> = csv.map((row) => row["3DMARK STORAGE 75%"]);
-const spec: Array<number> = csv.map((row) => row["SEPC Workstation 3.1 Storage zero"]);
-const spec75: Array<number> = csv.map((row) => row["SEPC Workstation 3.1 Storage 75%"]);
+const spec: Array<number> = csv.map((row) => row["SPEC Workstation 3.1 Storage zero"]);
+const spec75: Array<number> = csv.map((row) => row["SPEC Workstation 3.1 Storage 75%"]);
 // create an array of arrays of scores
 const scores: Array<Array<number>> = [pcm, pcm75, dm, dm75, spec, spec75];
+
+// create an array of labels from the csv file
+// export const labels: Array<string> = Object.keys(csv[0]);
 export const Data = () => ({
   labels: names,
   datasets: [
@@ -41,30 +44,30 @@ export const Data = () => ({
       data: scores[1].map(scaledScore),
       borderRadius: 5,
     },
-    {
-      label: '3DMARK STORAGE ZERO (/100)',
-      backgroundColor: '#FFA500',
-      data: scores[2].map(scaledScore),
-      borderRadius: 5,
-    },
-    {
-      label: '3DMARK STORAGE 75% (/100)',
-      backgroundColor: '#72451E',
-      data: scores[3].map(scaledScore),
-      borderRadius: 5,
-    },
-    {
-      label: 'SPEC Workstation 3.1 Storage zero',
-      data: scores[4],
-      backgroundColor: '#64C6DA',
-      borderRadius: 5,
-    },
-    {
-      label: 'SPEC Workstation 3.1 Storage 75%',
-      data: scores[5],
-      backgroundColor: '#035161',
-      borderRadius: 5,
-    },
+    // {
+      // label: '3DMARK STORAGE ZERO (/100)',
+      // backgroundColor: '#FFA500',
+      // data: scores[2].map(scaledScore),
+      // borderRadius: 5,
+    // },
+    // {
+      // label: '3DMARK STORAGE 75% (/100)',
+      // backgroundColor: '#72451E',
+      // data: scores[3].map(scaledScore),
+      // borderRadius: 5,
+    // },
+    // {
+      // label: 'SPEC Workstation 3.1 Storage zero',
+      // data: scores[4],
+      // backgroundColor: '#64C6DA',
+      // borderRadius: 5,
+    // },
+    // {
+      // label: 'SPEC Workstation 3.1 Storage 75%',
+      // data: scores[5],
+      // backgroundColor: '#035161',
+      // borderRadius: 5,
+    // },
   ],
 });
 
@@ -97,12 +100,12 @@ export const options = {
       text: 'HOMO Lab SSD Benchmark',
     },
   },
-  scales: {
-    x: {
-      stacked: true,
-    },
-    y: {
-      stacked: true,
-    },
-  },
+  // scales: {
+    // x: {
+      // stacked: true,
+    // },
+    // y: {
+      // stacked: true,
+    // },
+  // },
 };
