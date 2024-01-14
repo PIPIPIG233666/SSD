@@ -18,40 +18,44 @@ import csv from '@/assets/ssd.csv';
 export const names: Array<string> = csv.map((row) => row["Name"]);
 
 // create an array of separate scores from the csv file
-const pcm: Array<number> = csv.map((row) => row["PCMARK 10 FULL STORAGE  ZERO"]);
-const pcm75: Array<number> = csv.map((row) => row["PCMARK 10 FULL STORAGE 75%"]);
-const dm: Array<number> = csv.map((row) => row["3DMARK STORAGE ZERO"]);
-const dm75: Array<number> = csv.map((row) => row["3DMARK STORAGE 75%"]);
-const spec: Array<number> = csv.map((row) => row["SPEC Workstation 3.1 Storage zero"]);
-const spec75: Array<number> = csv.map((row) => row["SPEC Workstation 3.1 Storage 75%"]);
+// const pcm: Array<number> = csv.map((row) => row["PCMARK 10 FULL STORAGE  ZERO"]);
+// const pcm75: Array<number> = csv.map((row) => row["PCMARK 10 FULL STORAGE 75%"]);
+// const dm: Array<number> = csv.map((row) => row["3DMARK STORAGE ZERO"]);
+// const dm75: Array<number> = csv.map((row) => row["3DMARK STORAGE 75%"]);
+// const spec: Array<number> = csv.map((row) => row["SPEC Workstation 3.1 Storage zero"]);
+// const spec75: Array<number> = csv.map((row) => row["SPEC Workstation 3.1 Storage 75%"]);
 // create an array of arrays of scores
-const scores: Array<Array<number>> = [pcm, pcm75, dm, dm75, spec, spec75];
+// const scores: Array<Array<number>> = [pcm, pcm75, dm, dm75, spec, spec75];
 
 // create an array of labels from the csv file
 // export const labels: Array<string> = Object.keys(csv[0]);
+// create an array of labels and corresponding pcm zero and additional 75 scores from the csv file
+const pcm: Array<{label: string, scoreZero: number, scoreSF: number}> = csv.map((row) => ({label: row["Name"], scoreZero: row["PCMARK 10 FULL STORAGE  ZERO"], scoreSF: row["PCMARK 10 FULL STORAGE 75%"]}));
+// sort the pcm array by scoreZero descending
+pcm.sort((a, b) => b.scoreZero - a.scoreZero);
 export const Data = () => ({
-  labels: names,
+  labels: pcm.map((row) => row.label),
   datasets: [
     {
-      label: 'PCMark 10 Full Storage Zero (/100)',
+      label: 'PCMark 10 Full Storage Zero ',
       backgroundColor: '#f87979',
-      data: scores[0].map(scaledScore),
+      data: pcm.map((row) => scaledScore(row.scoreZero)),
       borderRadius: 5,
     },
     {
-      label: 'PCMark 10 Full Storage 75% (/100)',
+      label: 'PCMark 10 Full Storage 75% ',
       backgroundColor: '#5C0404',
-      data: scores[1].map(scaledScore),
+      data: pcm.map((row) => scaledScore(row.scoreSF)),
       borderRadius: 5,
     },
     // {
-      // label: '3DMARK STORAGE ZERO (/100)',
+      // label: '3DMARK STORAGE ZERO ',
       // backgroundColor: '#FFA500',
       // data: scores[2].map(scaledScore),
       // borderRadius: 5,
     // },
     // {
-      // label: '3DMARK STORAGE 75% (/100)',
+      // label: '3DMARK STORAGE 75% ',
       // backgroundColor: '#72451E',
       // data: scores[3].map(scaledScore),
       // borderRadius: 5,
