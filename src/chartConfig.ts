@@ -1,9 +1,4 @@
-// convert raw scores to scaled scores (divide by 100)
-function scaledScore(rawScore: number): number {
-  return rawScore / 1;
-}
-
-import csv from '@/assets/ssd.csv';
+import csv from '@/assets/ssdNew.csv';
 
 /* csv file headers
  * Name,
@@ -16,62 +11,73 @@ import csv from '@/assets/ssd.csv';
  */
 // create an array of names from the csv file
 export const names: Array<string> = csv.map((row) => row["Name"]);
-
-// create an array of separate scores from the csv file
-// const pcm: Array<number> = csv.map((row) => row["PCMARK 10 FULL STORAGE  ZERO"]);
-// const pcm75: Array<number> = csv.map((row) => row["PCMARK 10 FULL STORAGE 75%"]);
-// const dm: Array<number> = csv.map((row) => row["3DMARK STORAGE ZERO"]);
-// const dm75: Array<number> = csv.map((row) => row["3DMARK STORAGE 75%"]);
-// const spec: Array<number> = csv.map((row) => row["SPEC Workstation 3.1 Storage zero"]);
-// const spec75: Array<number> = csv.map((row) => row["SPEC Workstation 3.1 Storage 75%"]);
-// create an array of arrays of scores
-// const scores: Array<Array<number>> = [pcm, pcm75, dm, dm75, spec, spec75];
-
 // create an array of labels from the csv file
-// export const labels: Array<string> = Object.keys(csv[0]);
-// create an array of labels and corresponding pcm zero and additional 75 scores from the csv file
-const pcm: Array<{label: string, scoreZero: number, scoreSF: number}> = csv.map((row) => ({label: row["Name"], scoreZero: row["PCMARK 10 FULL STORAGE  ZERO"], scoreSF: row["PCMARK 10 FULL STORAGE 75%"]}));
-// sort the pcm array by scoreZero descending
-pcm.sort((a, b) => b.scoreZero - a.scoreZero);
+const tests: Array<string> = Object.keys(csv[0]);
+// create an array of labels and corresponding scores from the csv file
+const scores: Array<{
+  label: string,
+  scoreZero: number,
+  scoreSF: number,
+  dm: number,
+  dmSF: number,
+  spec: number,
+  spec75: number}> = csv.map((row) => ({
+    label: row["Name"],
+    scoreZero: row["PCMARK 10 FULL STORAGE  ZERO"],
+    scoreSF: row["PCMARK 10 FULL STORAGE 75%"],
+    dm: row["3DMARK STORAGE ZERO"],
+    dmSF: row["3DMARK STORAGE 75%"],
+    spec: row["SPEC Workstation 3.1 Storage zero"],
+    spec75: row["SPEC Workstation 3.1 Storage 75%"]}));
+// sort the scores array by scoreZero descending
+scores.sort((a, b) => b.scoreZero - a.scoreZero);
 export const Data = () => ({
-  labels: pcm.map((row) => row.label),
+  labels: scores.map((row) => row.label),
   datasets: [
     {
-      label: 'PCMark 10 Full Storage Zero ',
+      label: tests[1],
+      data: scores.map((row) => row.scoreZero),
       backgroundColor: '#f87979',
-      data: pcm.map((row) => scaledScore(row.scoreZero)),
       borderRadius: 5,
     },
     {
-      label: 'PCMark 10 Full Storage 75% ',
+      label: tests[2],
+      data: scores.map((row) => row.scoreSF),
       backgroundColor: '#5C0404',
-      data: pcm.map((row) => scaledScore(row.scoreSF)),
       borderRadius: 5,
     },
-    // {
-      // label: '3DMARK STORAGE ZERO ',
-      // backgroundColor: '#FFA500',
-      // data: scores[2].map(scaledScore),
-      // borderRadius: 5,
-    // },
-    // {
-      // label: '3DMARK STORAGE 75% ',
-      // backgroundColor: '#72451E',
-      // data: scores[3].map(scaledScore),
-      // borderRadius: 5,
-    // },
-    // {
-      // label: 'SPEC Workstation 3.1 Storage zero',
-      // data: scores[4],
-      // backgroundColor: '#64C6DA',
-      // borderRadius: 5,
-    // },
-    // {
-      // label: 'SPEC Workstation 3.1 Storage 75%',
-      // data: scores[5],
-      // backgroundColor: '#035161',
-      // borderRadius: 5,
-    // },
+    {
+      label: tests[3],
+      data: scores.map((row) => row.dm),
+      backgroundColor: '#FFA500',
+      borderRadius: 5,
+      // hide this dataset initially
+      hidden: true,
+    },
+    {
+      label: tests[4],
+      data: scores.map((row) => row.dmSF),
+      backgroundColor: '#72451E',
+      borderRadius: 5,
+      // hide this dataset initially
+      hidden: true,
+    },
+    {
+      label: tests[5],
+      data: scores.map((row) => row.spec),
+      backgroundColor: '#64C6DA',
+      borderRadius: 5,
+      // hide this dataset initially
+      hidden: true,
+    },
+    {
+      label: tests[6],
+      data: scores.map((row) => row.spec75),
+      backgroundColor: '#035161',
+      borderRadius: 5,
+      // hide this dataset initially
+      hidden: true,
+    },
   ],
 });
 
